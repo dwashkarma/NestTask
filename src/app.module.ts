@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProductsModule } from './products/products.module';
+import { ProductModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { ProductsModule } from './products/products.module';
     MongooseModule.forRoot(
       'mongodb+srv://dwashkarma:dwashkarma@cluster0.dzezum1.mongodb.net/Nest',
     ),
-    ProductsModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],

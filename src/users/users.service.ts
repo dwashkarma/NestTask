@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Users, UsersDocument } from './schema/user.schema';
 import { Model, Types } from 'mongoose';
 import { CreateUserDto } from './dto/create-user-dto';
-import { parse } from 'path';
 
 interface UserData {
   name: string;
@@ -59,11 +58,8 @@ export class UsersService {
   async createUser(dto: CreateUserDto) {
     try {
       const result = await this.userModel.create(dto);
-      const newObj = { date: Date.now(), ...result };
-      return;
-      {
-        message: 'user created successfully...';
-      }
+      // const newObj = { date: Date.now(), ...result };
+      return result;
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
@@ -81,14 +77,12 @@ export class UsersService {
   }
 
   //Update UserBy ID
-  async updateUser(id:string):Promise<any>{
+  async updateUser(id: string): Promise<any> {
     try {
-       const parseId = new Types.ObjectId(id);
-       const result = await this.userModel.findOneAndUpdate(parseId).exec();
-      
+      const parseId = new Types.ObjectId(id);
+      const result = await this.userModel.findOneAndUpdate(parseId).exec();
     } catch (error) {
-            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 }
